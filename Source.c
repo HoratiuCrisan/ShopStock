@@ -48,7 +48,7 @@ void capitalize_letter(char str[100]) {
 				str[i] = str[i] - 32;
 			continue; 
 		}
-		if (str[i] == ' ') /*Verificam daca a vem spatii*/
+		if (str[i] == ' ') /*Verificam daca avem spatii*/
 		{
 			++i;
 			if (str[i] >= 'a' && str[i] <= 'z')
@@ -93,7 +93,16 @@ int main()
 		printf("7. Actualizare stoc\n");
 		printf("Optiune: ");
 		reset();
-		(void)scanf("%d", &optiune);
+		/*In cazul in care valoarea nu este de tip int,
+		programul se va opri*/
+		int arg = scanf("%d", &optiune);
+		if (arg < 1) {
+			(void)getc(stdin);
+			red();
+			printf("\nValoarea este gresita!\n");
+			reset();
+			return;
+		}
 		printf("\n");
 		switch (optiune)
 		{
@@ -157,7 +166,17 @@ void citire_produs() {
 	int check = file_exists();
 	//Avem optiunea de a selecta cate produse dorim sa introducem odata
 	printf("Introduceti numarul de produse: ");
-	(void)scanf("%d", &numar_produse);
+	/*In cazul in care valoarea citita nu este de tip int,
+	se va afisa mesajul de mai jos,
+	iar functia se va opri*/
+	int arg = scanf("%d", &numar_produse);
+	if (arg < 1) {
+		(void)getc(stdin);
+		red();
+		printf("\n\nValoarea este incorecta!\n");
+		reset();
+		return;
+	}
 		p = (Produs*)calloc(numar_produse, sizeof(Produs));
 		/*In cazul in care fisierul nu exista, acesta va fi creat*/
 		if (check == 0)
@@ -178,7 +197,17 @@ void citire_produs() {
 			capitalize_letter(p[i].tara_produs);
 			(void)getc(stdin);
 			printf("Cantitate: ");
-			(void)scanf("%d", &p[i].cantitate);
+			/*In cazul in care valoarea citita nu este de tip int,
+			se va afisa mesajul de mai jos,
+			iar functia se va opri*/
+			arg = scanf("%d", &p[i].cantitate);
+			if (arg < 1) {
+				(void)getc(stdin);
+				red();
+				printf("\nValoarea este incorecta!\n");
+				reset();
+				return;
+			}
 			/*In cazul in care cantitatea pe care dorim sa o introducem
 			este mai mica sau egala decat 0, programul ne va obliga sa
 			reintroducem o valoare pozitiva nenula*/
@@ -434,7 +463,16 @@ void editare_produs() {
 					(void)scanf("%[^\n]s", p1.tara_produs);
 					(void)getc(stdin);
 					printf("Noua cantitate: ");
-					(void)scanf("%d", &p1.cantitate);
+					/*In cazul in care valoarea citita nu este de tip int,
+					se va afisa mesajul de mai jos,
+					iar functia se va opri*/
+					int arg = scanf("%d", &p1.cantitate);
+					if (arg < 1) {
+						(void)getc(stdin);
+						red();
+						printf("\nValoarea este incorecta!\n");
+						reset();
+					}
 					printf("\n");
 					p1.cumparate = 0;
 					/*Apelam functia pentru a transforma numele
@@ -514,9 +552,19 @@ void cumparare_produs() {
 					}
 					else {
 						/*In cazul in care produsul este gasit,
-					putem alege cantitatea pe care dorim sa o cumparam*/
+						putem alege cantitatea pe care dorim sa o cumparam*/
 						printf("\nIntroduceti cantitatea pe care doriti sa o cumparati: ");
-						(void)scanf("%d", &cump);
+						/*In cazul in care valoarea citita nu este de tip int,
+						se va afisa mesajul de mai jos,
+						iar functia se va opri*/
+						int arg = scanf("%d", &cump);
+						if (arg < 1) {
+							(void)getc(stdin);
+							red();
+							printf("\nValoarea este gresita!\n");
+							reset();
+							return;
+						}
 						/*Cantitatea trebuie sa fie pozitiva, nenula*/
 						while (cump <= 0) {
 							printf("\nCantitatea este prea mica!\n");
@@ -527,7 +575,17 @@ void cumparare_produs() {
 						while (cump > p1.cantitate) {
 							printf("\nCantitatea este prea mare.\n");
 							printf("\nIntroduceti o cantitate mai mica: ");
-							(void)scanf("%d", &cump);
+							/*In cazul in care valoarea citita nu este de tip int,
+							se va afisa mesajul de mai jos,
+							iar functia se va opri*/
+							arg = scanf("%d", &cump);
+							if (arg < 1) {
+								(void)getc(stdin);
+								red();
+								printf("\nValoarea este gresita!\n");
+								reset();
+								return;
+							}
 						}
 						/*Dupa ce o anumita cantitate a fost cumparata,
 						numarul de produse de acelasi fel va fi updatat,
@@ -596,14 +654,34 @@ void actualizare_stoc() {
 					prezente in stoc*/
 					printf("Introduceti noua cantitate: ");
 					(void)getc(stdin);
-					(void)scanf("%d", &cump);
+					/*In cazul in care valoarea citita nu este de tip int,
+					se va afisa mesajul de mai jos,
+					iar functia se va opri*/
+					int arg = scanf("%d", &cump);
+					if (arg < 1) {
+						(void)getc(stdin);
+						red();
+						printf("\nValoarea este gresita!\n");
+						reset();
+						return;
+					}
 					/*In cazul in care valoarea introdusa
 					este mai mica sau egala cu 0
 					va trebui introdusa o alta valoare*/
 					while (cump <= 0) {
 						printf("\nValoarea este prea mica!\n");
 						printf("Introduceti o noua valoare: ");
-						(void)scanf("%d", &cump);
+						/*In cazul in care valoarea citita nu este de tip int,
+						se va afisa mesajul de mai jos,
+						iar functia se va opri*/
+						int arg = scanf("%d", &cump);
+						if (arg < 1) {
+							(void)getc(stdin);
+							red();
+							printf("\nValoarea este gresita!\n");
+							reset();
+							return;
+						}
 					}
 					/*Vom adauga nou cantitate la 
 					cea deja existenta*/
